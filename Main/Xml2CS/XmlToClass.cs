@@ -35,6 +35,7 @@ namespace Main
     @"using System;
 using System.Xml;
 using System.Collections.Generic;
+using MFrameWork;
 
 public class #class#:BasePrototype
 {
@@ -47,11 +48,11 @@ public class #class#:BasePrototype
 
 
 
-        public void ToClass(string xml,string path)
+        public void ToClass(string xml, string path)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(xml);
-           
+
             XmlNode node = null;
             //取出表依赖的类
             node = doc.FirstChild;
@@ -88,7 +89,7 @@ public class #class#:BasePrototype
                 fileContent = fileContent.Replace(_field, sbfield.ToString());
                 fileContent = fileContent.Replace(_method, sbmethod.ToString());
 
-                SaveToProject(path+@"\" + type + ".cs", fileContent);
+                SaveToProject(path, type, fileContent);
             }
 
         }
@@ -104,20 +105,20 @@ public class #class#:BasePrototype
             {
                 case XmlFileType.Int:
                     fieldType = "int";
-                    method = name + " = XmlUtil.GetAttribute<int>(data, \"" + name + "\");";
+                    method = name + " = Utility.Xml.GetAttribute<int>(data, \"" + name + "\");";
                     break;
                 case XmlFileType.String:
                     fieldType = "string";
-                    method = name + " = XmlUtil.GetAttribute<string>(data, \"" + name + "\");";
+                    method = name + " = Utility.Xml.GetAttribute<string>(data, \"" + name + "\");";
                     break;
                 case XmlFileType.ListInt:
                     fieldType = "int[]";
-                    method = name + " = XmlUtil.ParseString<int>(XmlUtil.GetAttribute<string>(data, \"" + name +
+                    method = name + " = Utility.Xml.ParseString<int>(XmlUtil.GetAttribute<string>(data, \"" + name +
                              "\"), new char[] { '" + sm + "' });";
                     break;
                 case XmlFileType.ListString:
                     fieldType = "string[]";
-                    method = name + " = XmlUtil.ParseString<string>(XmlUtil.GetAttribute<string>(data, \"" + name +
+                    method = name + " = Utility.Xml.ParseString<string>(XmlUtil.GetAttribute<string>(data, \"" + name +
                              "\"), new char[] { '" + sm + "' });";
                     break;
                 default:
@@ -191,12 +192,16 @@ public class #class#:BasePrototype
             return true;
         }
 
-        public static void SaveToProject(string path, string content)
+        public static void SaveToProject(string path, string type, string content)
         {
-
             if (!string.IsNullOrEmpty(path))
             {
-                using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                string fileFullName = path + @"\" + type + ".cs";
+                using (FileStream fs = new FileStream(fileFullName, FileMode.OpenOrCreate))
                 {
                     using (StreamWriter sw = new StreamWriter(fs))
                     {

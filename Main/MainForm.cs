@@ -14,7 +14,7 @@ namespace Main
     /// </summary>
     public partial class MainForm : Form
     {
-       
+
 
         private string _pathExcel;//Excel 路径
         private string _pathXml;//XML 路径
@@ -41,18 +41,8 @@ namespace Main
             RefreshPath();
 
         }
-        private void clbList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-        
-       
-
-        private void listBoxLogInfo_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
 
-        }
         private void listBoxLogInfo_MouseDoubleClick(object sender, MouseEventArgs e)
         {
 
@@ -165,7 +155,7 @@ namespace Main
         private void RefreshPath()
         {
             _pathExcel = SettingManager.Instance.GetConfig(SettingDefine.PATH_KEY_EXCEL);
-          
+
             _pathXml = SettingManager.Instance.GetConfig(SettingDefine.PATH_KEY_XML);
 
             RefreshFileList(_pathExcel);
@@ -194,14 +184,14 @@ namespace Main
                 infos[0].FileFullPath = listFiles[cnt];
                 infos[0].FileFolder = Path.GetDirectoryName(infos[0].FileFullPath);
                 infos[0].FileName = Path.GetFileName(infos[0].FileFullPath);
-                infos[0].FilePath = infos[0].FileFullPath.Replace(_pathExcel + "\\", string.Empty);
+                //infos[0].FilePath = infos[0].FileFullPath.Replace(_pathExcel + "\\", string.Empty);
 
 
                 infos[1].FileFullPath = infos[0].FileFullPath.Replace(_pathExcel, _pathXml);
 
                 infos[1].FileFolder = Path.GetDirectoryName(infos[1].FileFullPath);
                 infos[1].FileName = Path.GetFileName(infos[1].FileFullPath);
-                infos[1].FilePath = infos[1].FileFullPath.Replace(_pathXml + "\\", string.Empty);
+                //infos[1].FilePath = infos[1].FileFullPath.Replace(_pathXml + "\\", string.Empty);
 
                 // info.XmlFilePath=info.fi
                 clbList.Items.Add(infos[0], true);
@@ -257,14 +247,13 @@ namespace Main
             }
             try
             {
-
                 if (!File.Exists(infos[1].FileFolder))
                 {
                     Directory.CreateDirectory(infos[1].FileFolder);
                 }
-                xmlDoc.Save(infos[1].FileFolder + "\\" + titleName + ".xml");
-
-                msg = string.Empty;
+                string strFileName = infos[1].FileFolder + "\\" + titleName + ".xml";
+                xmlDoc.Save(strFileName);
+                msg = "保存文件" + titleName + ".xml";
                 return true;
             }
             catch (Exception e)
@@ -285,9 +274,9 @@ namespace Main
             }
             return !isNull;
         }
-        
 
-       
+
+
 
 
 
@@ -342,13 +331,24 @@ namespace Main
         {
             FormSetting setting = new FormSetting(this);
             setting.Show();
-            
-           
+
+
         }
 
         private void StripMenuItemXML2CS_Click(object sender, EventArgs e)
         {
+            string path = SettingManager.Instance.GetConfig(SettingDefine.PATH_KEY_CS);
+            if (string.IsNullOrEmpty(path))
+            {
+                MessageBox.Show(" CS目录未设置 ", "错误");
+                return;
+            }
             Xml2CSManager.Instance.XmlToCS(_pathXml);
+            DialogResult res = MessageBox.Show(" 导出成功,是否打开目录 ", "好了");
+            if (res == DialogResult.OK)
+            {
+                System.Diagnostics.Process.Start("explorer.exe", path);
+            }
         }
     }
 
@@ -360,7 +360,7 @@ namespace Main
         public string FileName;
         public override string ToString()
         {
-            return FilePath + "\\" + FileName;
+            return FileName;
         }
     }
 

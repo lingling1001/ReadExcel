@@ -36,13 +36,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.checkBoxAll = new System.Windows.Forms.CheckBox();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.listBoxLogInfo = new System.Windows.Forms.ListBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuSetting = new System.Windows.Forms.MenuStrip();
             this.toolSetting = new System.Windows.Forms.ToolStripMenuItem();
             this.工具ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.StripMenuItemXML2CS = new System.Windows.Forms.ToolStripMenuItem();
             this.button2 = new System.Windows.Forms.Button();
+            this.listBoxLogInfo = new System.Windows.Forms.ListBox();
             this.menuSetting.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,7 +54,6 @@
             this.clbList.Name = "clbList";
             this.clbList.Size = new System.Drawing.Size(335, 340);
             this.clbList.TabIndex = 0;
-            this.clbList.SelectedIndexChanged += new System.EventHandler(this.clbList_SelectedIndexChanged);
             // 
             // btnExport
             // 
@@ -62,7 +61,7 @@
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(129, 32);
             this.btnExport.TabIndex = 1;
-            this.btnExport.Text = "导出文件";
+            this.btnExport.Text = "导出单个文件";
             this.btnExport.UseVisualStyleBackColor = true;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
@@ -72,7 +71,7 @@
             this.btnExportAll.Name = "btnExportAll";
             this.btnExportAll.Size = new System.Drawing.Size(129, 32);
             this.btnExportAll.TabIndex = 2;
-            this.btnExportAll.Text = "一键导出";
+            this.btnExportAll.Text = "导出所有文件";
             this.btnExportAll.UseVisualStyleBackColor = true;
             this.btnExportAll.Click += new System.EventHandler(this.btnExportAll_Click);
             // 
@@ -118,21 +117,6 @@
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
-            // listBoxLogInfo
-            // 
-            this.listBoxLogInfo.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.listBoxLogInfo.FormattingEnabled = true;
-            this.listBoxLogInfo.ItemHeight = 12;
-            this.listBoxLogInfo.Items.AddRange(new object[] {
-            "213123"});
-            this.listBoxLogInfo.Location = new System.Drawing.Point(380, 73);
-            this.listBoxLogInfo.Name = "listBoxLogInfo";
-            this.listBoxLogInfo.Size = new System.Drawing.Size(273, 340);
-            this.listBoxLogInfo.TabIndex = 11;
-            this.listBoxLogInfo.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBoxLogInfo_DrawItem);
-            this.listBoxLogInfo.SelectedIndexChanged += new System.EventHandler(this.listBoxLogInfo_SelectedIndexChanged);
-            this.listBoxLogInfo.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBoxLogInfo_MouseDoubleClick);
-            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
@@ -167,7 +151,7 @@
             // StripMenuItemXML2CS
             // 
             this.StripMenuItemXML2CS.Name = "StripMenuItemXML2CS";
-            this.StripMenuItemXML2CS.Size = new System.Drawing.Size(180, 22);
+            this.StripMenuItemXML2CS.Size = new System.Drawing.Size(124, 22);
             this.StripMenuItemXML2CS.Text = "XML2CS";
             this.StripMenuItemXML2CS.Click += new System.EventHandler(this.StripMenuItemXML2CS_Click);
             // 
@@ -180,15 +164,24 @@
             this.button2.Text = "清空";
             this.button2.UseVisualStyleBackColor = true;
             // 
+            // listBoxLogInfo
+            // 
+            this.listBoxLogInfo.FormattingEnabled = true;
+            this.listBoxLogInfo.ItemHeight = 12;
+            this.listBoxLogInfo.Location = new System.Drawing.Point(380, 73);
+            this.listBoxLogInfo.Name = "listBoxLogInfo";
+            this.listBoxLogInfo.Size = new System.Drawing.Size(273, 340);
+            this.listBoxLogInfo.TabIndex = 17;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.listBoxLogInfo);
             this.Controls.Add(this.menuSetting);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btnRefresh);
-            this.Controls.Add(this.listBoxLogInfo);
             this.Controls.Add(this.checkBoxAll);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -217,13 +210,13 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox checkBoxAll;
         private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.ListBox listBoxLogInfo;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.MenuStrip menuSetting;
         private System.Windows.Forms.ToolStripMenuItem toolSetting;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ToolStripMenuItem 工具ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem StripMenuItemXML2CS;
+        private System.Windows.Forms.ListBox listBoxLogInfo;
     }
 }
 
